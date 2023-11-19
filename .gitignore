@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/src/node_modules
+/src-upload/node_modules
+/src-edge/node_modules
+/.vscode
