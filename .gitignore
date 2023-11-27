@@ -4,3 +4,4 @@
 /src-upload/node_modules
 /src-edge/node_modules
 /.vscode
+.DS_Store

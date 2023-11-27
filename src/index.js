@@ -1,15 +1,14 @@
 "use strict";
 
 const querystring = require("querystring"); // Don't install.
-const AWS = require("aws-sdk"); // Don't install.
+const { S3Client, GetObjectAclCommand } = require("@aws-sdk/client-s3"); // aws-sdk v3로 변경 (Dont' install.)
 const Sharp = require("sharp");
 
-const S3 = new AWS.S3({
+const client = new S3Client({
   region: "ap-northeast-2",
 });
 
-// bucket name.
-const BUCKET = "my-bucket";
+const BUCKET = "lo-gos-test";
 
 /**
  * 포맷 타입 PNG 여부
@@ -114,10 +113,12 @@ exports.handler = async (event, context, callback) => {
   let resizedImage;
 
   try {
-    s3Object = await S3.getObject({
+    const command = await new GetObjectAclCommand({
       Bucket: BUCKET,
       Key: decodeURI(imageName + "." + extension),
-    }).promise();
+    });
+
+    s3Object = await client.send(command);
   } catch (error) {
     console.error("S3.getObject: ", error);
     return callback(error);
