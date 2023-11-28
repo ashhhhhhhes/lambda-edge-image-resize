@@ -1,13 +1,16 @@
 "use strict";
 
+// ❶ 필수 모듈
 const querystring = require("querystring"); // Don't install.
 const { S3Client, GetObjectAclCommand } = require("@aws-sdk/client-s3"); // aws-sdk v3로 변경 (Dont' install.)
 const Sharp = require("sharp");
 
+// ❷ S3 클라이언트, 버킷명 설정
 const client = new S3Client({
   region: "ap-northeast-2",
 });
 
+// ❷-1. 버킷명 버킷명이 틀리면 오류가 발생할 수 있습니다.
 const BUCKET = "lo-gos-test";
 
 /**
@@ -113,6 +116,7 @@ exports.handler = async (event, context, callback) => {
   let resizedImage;
 
   try {
+    console.log(BUCKET, decodeURI(imageName + "." + extension));
     const command = await new GetObjectAclCommand({
       Bucket: BUCKET,
       Key: decodeURI(imageName + "." + extension),
@@ -125,6 +129,8 @@ exports.handler = async (event, context, callback) => {
   }
 
   const origintLength = s3Object.ContentLength;
+
+  console.log(origintLength, "origintLength");
 
   try {
     const image = Sharp(s3Object.Body, {
