@@ -1,6 +1,6 @@
 # al:2 에서 al:2023 버전으로 변경 (node v18 이슈)
 # (오류) node: /lib64/libm.so.6: version `GLIBC_2.27' not found (required by node)
-FROM amazonlinux:2023 
+FROM amazonlinux:2
 
 WORKDIR /tmp
 
@@ -15,6 +15,6 @@ RUN touch ~/.bashrc && chmod +x ~/.bashrc
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-RUN source ~/.bashrc && nvm install 18.12.1
+RUN source ~/.bashrc && nvm install 14.15.1
 
 WORKDIR /build
