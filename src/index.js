@@ -1,14 +1,16 @@
 "use strict";
 
+// ❶ 필수 모듈
 const querystring = require("querystring"); // Don't install.
 const AWS = require("aws-sdk"); // Don't install.
 const Sharp = require("sharp");
 
+// ❷ S3 클라이언트, 버킷명 설정
 const S3 = new AWS.S3({
   region: "ap-northeast-2",
 });
 
-// TODO 버켓 설정 필요
+// ❷-1. 버킷명 버킷명이 틀리면 오류가 발생할 수 있습니다.
 const BUCKET = "lo-gos-test";
 
 /**
